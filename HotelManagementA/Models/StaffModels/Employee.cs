@@ -29,7 +29,10 @@ namespace HotelManagementA.Models.StaffModels
         public string Email { get; set; }=string.Empty;
         [Required]
         //role 
-        public Roles role { get; set; } = Roles.CommonWorker;
+        public Roles Role { get; set; } = Roles.CommonWorker;
+
+        //PASSWORD 
+        public string? PasswordHash { get; set; }
 
         //Relations to Hotel 
         [Required]

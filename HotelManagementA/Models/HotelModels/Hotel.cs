@@ -17,8 +17,14 @@ namespace HotelManagementA.Models.HotelModels
         public int LocationId { get; set; }
 
         public List<Employee> Employees { get; set;} = new List<Employee>();
-        
 
+        //hotel rate 
+        public List<HotelReview> Reviews { get; set; }=new List<HotelReview>();
+
+
+        public double AverageRating { get; set; } = 0;
+
+        public int TotalReviews { get; set; } = 0;
 
     }
 }
