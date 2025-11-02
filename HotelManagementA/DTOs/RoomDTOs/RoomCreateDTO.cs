@@ -1,12 +1,11 @@
 ﻿namespace HotelManagementA.DTOs.RoomDTOs
 {
-    public class RoomReadDTO
+    public class RoomCreateDTO
     {
-        public int Id { get; set; } 
+        
         public int RoomNumber { get; set; }
-        public string RoomType { get; set; }=string.Empty;
+        public int  RoomTypeId { get; set; }
         public int HotelId { get; set; }
-
         public bool IsCleaned { get; set; } = false;
     }
 }

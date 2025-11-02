@@ -16,6 +16,8 @@ namespace HotelManagementA.DTOs.HoteDTOs
         public double AverageRating { get; set; } = 0;
         public int TotalReviews { get; set; } = 0;
 
+        public List<RoomReadDTO> Rooms { get; set; } = new();
+        public List<HotelReviewReadDTO> Reviews  { get; set;} = new();  
         
     }
 }
