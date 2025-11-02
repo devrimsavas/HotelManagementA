@@ -13,7 +13,7 @@ namespace HotelManagementA.Models.HotelModels
         public string Telephone {  get; set; } = string.Empty;
         public List<Room> Rooms { get; set; }= new List<Room>();
 
-        public Location Location { get; set; }  =new Location();
+        public Location? Location { get; set; } 
         public int LocationId { get; set; }
 
         public List<Employee> Employees { get; set;} = new List<Employee>();

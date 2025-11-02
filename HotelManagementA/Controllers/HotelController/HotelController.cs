@@ -121,7 +121,7 @@ namespace HotelManagementA.Controllers.HotelController
                 Name= newHotel.Name,
                 Description= newHotel.Description,
                 Telephone= newHotel.Telephone,
-                City = (await _appDbContext.Locations.FindAsync(newHotel.LocationId))?.City ?? "",
+                City = await _appDbContext.Locations.Where(l=>l.Id==newHotel.LocationId).Select(l=>l.City).FirstOrDefaultAsync() ?? "",
                 AverageRating=newHotel.AverageRating,
             };
 
