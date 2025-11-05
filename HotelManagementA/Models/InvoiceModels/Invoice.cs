@@ -27,8 +27,10 @@ namespace HotelManagementA.Models.InvoiceModels
 
         //INVOICE DETAILS 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalAmount { get; set; }
 
+        [Column(TypeName = "decimal(5,2)")]
         public decimal TaxRate { get; set; } = 0.0m;
 
         [Required]

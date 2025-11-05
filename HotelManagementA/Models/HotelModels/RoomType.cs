@@ -12,6 +12,7 @@ namespace HotelManagementA.Models.HotelModels
         [MaxLength(500)]    
         public string Description { get; set; } = "Generic Description";
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         [Required]
         public int Capacity { get; set; }

@@ -14,5 +14,7 @@ namespace HotelManagementA.Models.HotelModels
         public string Street {  get; set; }=string.Empty;   
         [Required]
         public string Country { get; set; } =string.Empty;
+
+
     }
 }

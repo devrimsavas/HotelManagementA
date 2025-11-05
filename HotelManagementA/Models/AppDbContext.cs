@@ -39,6 +39,7 @@ namespace HotelManagementA.Models
                 .HasOne(h => h.Location)
                 .WithOne()
                 .HasForeignKey<Hotel>(h => h.LocationId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Hotel ↔ Employee (one-to-many)
