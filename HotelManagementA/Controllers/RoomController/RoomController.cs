@@ -4,6 +4,7 @@ using HotelManagementA.Models.HotelModels;
 using HotelManagementA.DTOs;
 using HotelManagementA.DTOs.HoteDTOs;
 using HotelManagementA.DTOs.RoomDTOs;
+using HotelManagementA.DTOs.RoomTypeDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagementA.Controllers.RoomController
@@ -46,5 +47,69 @@ namespace HotelManagementA.Controllers.RoomController
 
 
         }
+        [HttpPost("{hotelId}")]
+        public async Task<ActionResult<RoomReadDTO>> AddRoom([FromBody] RoomCreateDTO roomCreateDTO,int hotelId)
+        {
+            var existedHotel = await _appDbContext.Hotels
+                .Include(h=>h.Rooms)                
+                .FirstOrDefaultAsync(h => h.Id == hotelId);
+
+            if (existedHotel == null)
+            {
+                return BadRequest(new { Message = "Hotel Does not exist" });
+            }
+
+            //check room type
+            var roomType = await _appDbContext.RoomTypes.FindAsync(roomCreateDTO.RoomTypeId);
+            if (roomType == null)
+            {
+                return BadRequest(new { Message = "Invalid RoomType ID " });
+            }
+
+            //check duplicate room number
+            if (existedHotel.Rooms.Any(r=>r.RoomNumber == roomCreateDTO.RoomNumber))
+            {
+                return BadRequest(new { Message = "This room number already exists in the hotel." });
+            };
+
+            //create a new room
+            var newRoom = new Room
+            {
+                RoomNumber = roomCreateDTO.RoomNumber,
+                RoomTypeId = roomCreateDTO.RoomTypeId,
+                HotelId = hotelId,
+                IsCleaned = roomCreateDTO.IsCleaned
+            };
+            _appDbContext.Rooms.Add(newRoom);
+            await _appDbContext.SaveChangesAsync();
+            //map 
+            var result = new RoomReadDTO
+            {
+                Id = newRoom.Id,
+                RoomType = roomType.Name,
+                HotelId = newRoom.HotelId,
+                IsCleaned = newRoom.IsCleaned
+            };
+            return CreatedAtAction(nameof(GetAHotelRooms), new { hotelId = newRoom.HotelId }, result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+
     }
 }

@@ -37,12 +37,36 @@ namespace HotelManagementA.Controllers.RoomTypeController
 
         }
         [HttpPost]
-        public async Task<ActionResult<RoomTypeReadDTO>> AddRoomType([FromBody]RoomTypeReadDTO roomType)
+        public async Task<ActionResult<RoomTypeReadDTO>> AddRoomType([FromBody] RoomTypeCreateDTO roomTypeDTO)
         {
-            if (string.IsNullOrWhiteSpace(roomType.Name))
+            if (string.IsNullOrWhiteSpace(roomTypeDTO.Name))
             {
                 return BadRequest(new { Message = "Room type name is required" });
             }
+
+            var roomType = new RoomType
+            {
+                Name = roomTypeDTO.Name,
+                Description = roomTypeDTO.Description,
+                Price = roomTypeDTO.Price,
+                Capacity = roomTypeDTO.Capacity,
+            };
+            _appDbContext.RoomTypes.Add(roomType);
+            await _appDbContext.SaveChangesAsync();
+            //results
+            var result = new RoomTypeReadDTO
+            {
+                Id = roomType.Id,
+                Name = roomType.Name,
+                Description = roomType.Description,
+                Price = roomType.Price,
+                Capacity = roomType.Capacity,
+            };
+
+            return CreatedAtAction(nameof(GetRoomTypes), new { id = roomType.Id }, result);
+
+        }
+
 
             
 
