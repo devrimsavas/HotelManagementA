@@ -4,17 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HotelManagementA.Models.StaffModels
 {
-    public enum Roles
-    {
-        Admin,
-        Manager,
-        Receptionist,
-        Kitchen,
-        Cleaner,
-        CommonWorker, //defined ones 
-        Customer
-
-    }
+    
     public class Employee
     {
         [Key]
@@ -23,13 +13,15 @@ namespace HotelManagementA.Models.StaffModels
         [StringLength(50)]
         public string FirstName { get; set; } = string.Empty;
         [Required]
-        [StringLength(50)]
-        public string PersonalCode { get; set; }= string.Empty;
+        [StringLength(100)]
+        public string Surname { get; set; }= string.Empty;
         [Required]
         public string Email { get; set; }=string.Empty;
         [Required]
-        //role 
-        public Roles Role { get; set; } = Roles.CommonWorker;
+        //role navigation 
+        public int RoleId { get; set; }
+        public Role? Role { get; set; }
+
 
         //PASSWORD 
         public string? PasswordHash { get; set; }
