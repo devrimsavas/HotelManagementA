@@ -26,6 +26,7 @@ namespace HotelManagementA.Models
 
         // Staff
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         // Payment & Invoice
         public DbSet<Payment> Payments { get; set; }

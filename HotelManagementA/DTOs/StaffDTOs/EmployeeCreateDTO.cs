@@ -1,6 +1,6 @@
 ﻿namespace HotelManagementA.DTOs.StaffDTOs
 {
-    public class EmloyeeCreateDTO
+    public class EmployeeCreateDTO
     {
         public string FirstName { get; set; }=string.Empty;
         public string LastName { get; set; } =string.Empty;
