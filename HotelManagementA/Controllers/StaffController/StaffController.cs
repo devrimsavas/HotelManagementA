@@ -49,14 +49,17 @@ namespace HotelManagementA.Controllers.StaffController
         [HttpPost]
         public async Task<ActionResult<EmployeeReadDTO>> CreateNewEmployee([FromBody] EmployeeCreateDTO employeeDTO)
         {
-            if (string.IsNullOrWhiteSpace(employeeDTO.FirstName) || string.IsNullOrEmpty(employeeDTO.Email))
+            if (string.IsNullOrWhiteSpace(employeeDTO.FirstName) ||
+                string.IsNullOrWhiteSpace(employeeDTO.LastName) ||
+                string.IsNullOrWhiteSpace(employeeDTO.Email))
             {
-                return BadRequest(new { Message = "Name and Surname Required" });
+                return BadRequest(new { Message = "First name, last name and email are required" });
             }
+
             var existedEmployee = await _appDbContext.Employees.FirstOrDefaultAsync(e => e.Email == employeeDTO.Email);
             if (existedEmployee != null)
             {
-                return Conflict(new { Message = $"An employee with email ${employeeDTO.Email} already exists" });
+                return Conflict(new { Message = $"An employee with email {employeeDTO.Email} already exists" });
             }
             //hotel id check 
             var hotelExists = await _appDbContext.Hotels.AnyAsync(h => h.Id == employeeDTO.HotelId);
